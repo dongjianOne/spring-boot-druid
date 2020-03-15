@@ -1,0 +1,36 @@
+
+spring:
+  datasource:
+    username: root
+    password: dj975573.
+    driver-class-name: com.mysql.jdbc.Driver
+    #?serverTimezone=UTC解决时区的报错
+    url: jdbc:mysql://localhost:3306/douban?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    type: com.alibaba.druid.pool.DruidDataSource
+    #Spring Boot 默认是不注入这些属性值的，需要自己绑定
+    #druid 数据源专有配置
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    # 用来检测连接是否有效，要求是一个查询语句，如果validationQuery为null，那么testWhileIdle、testOnBorrow、testOnReturn都不会起作用
+    validationQuery: SELECT 1 FROM DUAL
+    # 不影响性能，而且保证安全性，建议配置。申请连接的时候检测，当空闲时间大于timeBetweenEvictionRunsWills时执行validationQuery检测连接是否有效
+    testWhileIdle: true
+    # 申请连接时先对连接进行validationQuery检测，这样做会降低性能
+    testOnBorrow: false
+    # 归还连接时对连接进行validationQuery检测，配置此属性会降低性能
+    testOnReturn: false
+    poolPreparedStatements: true
+
+    #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
+    #如果允许时报错  java.lang.ClassNotFoundException: org.apache.log4j.Priority
+    #则导入 log4j 依赖即可，Maven 地址：https://mvnrepository.com/artifact/log4j/log4j
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+server:
+  port: 8081
