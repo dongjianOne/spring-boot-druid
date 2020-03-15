@@ -1,3 +1,3 @@
-springboot整合druid
+SpringBoot整合Druid
 
-druid监控web端访问地址：http://localhost:8081/druid/login.html
+Druid监控web端访问地址：http://localhost:8081/druid/login.html
